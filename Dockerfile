@@ -20,7 +20,8 @@ COPY . .
 RUN dotnet publish src/JapanTripPlanner.Server/JapanTripPlanner.Server.csproj \
     --configuration Release \
     --output /app/publish \
-    /p:UseAppHost=false
+    /p:UseAppHost=false \
+    /p:BuildingInsideDocker=true
 
 # Step 3: Runtime container
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS runtime

@@ -6,13 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <!-- Automatically build the React app before building the server so latest changes are always reflected -->
-  <Target Name="BuildFrontend" BeforeTargets="Build">
-    <Exec Command="npm run build" WorkingDirectory="../JapanTripPlanner.App" />
-  </Target>
-
-  <Target Name="PublishFrontend" BeforeTargets="Publish">
-    <Exec Command="npm run build" WorkingDirectory="../JapanTripPlanner.App" />
+  <!-- Automatically build the React app during local dev before building the server -->
+  <Target Name="BuildFrontend" BeforeTargets="Build" Condition="'$(BuildingInsideDocker)' != 'true'">
+    <Exec Command="npm run build" WorkingDirectory="../JapanTripPlanner.App" ContinueOnError="true" />
   </Target>
 
 </Project>

@@ -2,10 +2,8 @@ import { getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
-// Default template configuration (Public Repository / Fallback)
-// In production, GitHub Actions replaces or injects credentials via FIREBASE_CONFIG secret before building Docker.
-// In development, credentials are read from firebase.local.js (which is ignored by Git).
-const defaultFirebaseConfig = {
+// Fallback configuration if window.FIREBASE_CONFIG is not yet loaded
+const fallbackConfig = {
   apiKey: 'YOUR_API_KEY',
   authDomain: 'your-project.firebaseapp.com',
   databaseURL: 'https://your-project-default-rtdb.firebaseio.com',
@@ -16,18 +14,11 @@ const defaultFirebaseConfig = {
   measurementId: 'YOUR_MEASUREMENT_ID',
 }
 
-// Dynamically load local overrides if available, otherwise fall back to default
-let activeConfig = defaultFirebaseConfig
-try {
-  const localModule = await import('./firebase.local.js')
-  if (localModule && localModule.localFirebaseConfig) {
-    activeConfig = localModule.localFirebaseConfig
-  }
-} catch {
-  // firebase.local.js is absent in CI or production before build injection
-}
+const firebaseConfig = (typeof window !== 'undefined' && window.FIREBASE_CONFIG)
+  ? window.FIREBASE_CONFIG
+  : fallbackConfig
 
-const app = getApps().length ? getApp() : initializeApp(activeConfig)
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const googleProvider = new GoogleAuthProvider()
 export const db = getFirestore(app)
