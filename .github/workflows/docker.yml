@@ -28,8 +28,8 @@ jobs:
           FIREBASE_CONFIG_SECRET: ${{ secrets.FIREBASE_CONFIG }}
         run: |
           if [ -n "$FIREBASE_CONFIG_SECRET" ]; then
-            echo "$FIREBASE_CONFIG_SECRET" > src/JapanTripPlanner.App/firebase-config.js
-            echo "Successfully injected FIREBASE_CONFIG secret into firebase-config.js"
+            echo "$FIREBASE_CONFIG_SECRET" > src/JapanTripPlanner.App/public/firebase-config.js
+            echo "Successfully injected FIREBASE_CONFIG secret into public/firebase-config.js"
           else
             echo "Warning: FIREBASE_CONFIG secret is not set!"
           fi
