@@ -23,6 +23,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inject Firebase Configuration
+        env:
+          FIREBASE_CONFIG_SECRET: ${{ secrets.FIREBASE_CONFIG }}
+        run: |
+          if [ -n "$FIREBASE_CONFIG_SECRET" ]; then
+            echo "$FIREBASE_CONFIG_SECRET" > src/JapanTripPlanner.App/src/firebase.local.js
+            echo "Successfully injected FIREBASE_CONFIG secret into firebase.local.js"
+          else
+            echo "Warning: FIREBASE_CONFIG secret is not set!"
+          fi
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
