@@ -1,0 +1,16 @@
+services:
+  japan-trip-planner:
+    image: ghcr.io/${GITHUB_OWNER:-dhrmaes}/japan-trip-planner:${IMAGE_TAG:-latest}
+    container_name: japan-trip-planner
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8096}:${INTERNAL_PORT:-8096}"
+    environment:
+      - ASPNETCORE_URLS=http://+:${INTERNAL_PORT:-8096}
+      - ASPNETCORE_ENVIRONMENT=Production
+      - JapanTripPlanner__UploadsDirectory=/app/uploads
+    volumes:
+      - japan-trip-planner-uploads:/app/uploads
+
+volumes:
+  japan-trip-planner-uploads:

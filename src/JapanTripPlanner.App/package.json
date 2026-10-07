@@ -1,0 +1,29 @@
+{
+  "name": "japan-trip-planner",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "firebase": "^12.18.0",
+    "lucide-react": "latest",
+    "pdfjs-dist": "^6.3.289",
+    "react": "latest",
+    "react-dom": "latest",
+    "tesseract.js": "^7.0.0",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "latest",
+    "globals": "latest"
+  }
+}

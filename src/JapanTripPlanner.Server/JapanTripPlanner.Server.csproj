@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Automatically build the React app before building the server so latest changes are always reflected -->
+  <Target Name="BuildFrontend" BeforeTargets="Build">
+    <Exec Command="npm run build" WorkingDirectory="../JapanTripPlanner.App" />
+  </Target>
+
+  <Target Name="PublishFrontend" BeforeTargets="Publish">
+    <Exec Command="npm run build" WorkingDirectory="../JapanTripPlanner.App" />
+  </Target>
+
+</Project>

@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-frontend",
+      "command": "npm",
+      "type": "shell",
+      "args": ["run", "build"],
+      "options": {
+        "cwd": "${workspaceFolder}/src/JapanTripPlanner.App"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "build",
+      "dependsOn": ["build-frontend"],
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/JapanTripPlanner.Server/JapanTripPlanner.Server.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary;ForceNoAlign"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/src/JapanTripPlanner.Server/JapanTripPlanner.Server.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary;ForceNoAlign"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/src/JapanTripPlanner.Server/JapanTripPlanner.Server.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
